@@ -7,9 +7,12 @@
 	<link rel="stylesheet" href="style.css">
 	<title>Calibration</title>
 </head>
-<body>
+<body style="background-color: black;">
+
+	<!--MOUSE COORDS-->
 	<p id="coordinates" style="position: absolute;"></p>
 
+	<!--CALIBRATION GIFS-->
 	<div class="calib" style="top:0;left:25%;" data-gifs='["words/together.gif", "words/soft.gif", "words/separate.gif", "words/memory.gif", "words/month.gif"]'></div>
 	<div class="calib" style="top:0;right:25%;" data-gifs='["words/together.gif", "words/soft.gif", "words/separate.gif", "words/memory.gif", "words/month.gif"]'></div>
 	<div class="calib" style="bottom:0;left:25%;" data-gifs='["words/together.gif", "words/soft.gif", "words/separate.gif", "words/memory.gif", "words/month.gif"]'></div>
@@ -17,9 +20,21 @@
 	<div class="calib" style="top:50%;left:0;transform: translateY(-50%);" data-gifs='["words/together.gif", "words/soft.gif", "words/separate.gif", "words/memory.gif", "words/month.gif"]'></div>
 	<div class="calib" style="top:50%;right: 0;transform: translateY(-50%);" data-gifs='["words/together.gif", "words/soft.gif", "words/separate.gif", "words/memory.gif", "words/month.gif"]'></div>
 
+	<!--INSTRUCTIONS-->
 	<div class="center">
 		<p id="instructions">PLEASE ENABLE YOUR WEB CAMERA<br>CALIBRATION WILL BEGIN SHORTLY</p>
 	</div>
+
+	<!--FOR THE CIRCLE-->
+	<div class="circle" id="circle1" style="top:0;left:0;"></div>
+	<div class="circle" id="circle2" style="top:0;right:0;"></div>
+	<div class="circle" id="circle3" style="bottom:0;left:0;"></div>
+	<div class="circle" id="circle4" style="bottom:0;right:0;"></div>
+	<div class="circle" id="circle5" style="top:0;left:50%;"></div>
+	<div class="circle" id="circle6" style="bottom:0;right:50%;"></div>
+	<div class="circle" id="circle7" style="bottom:50%;left:25%;"></div>
+	<div class="circle" id="circle8" style="bottom:50%;right:25%;"></div>
+
 
 	<script src="script.js" defer></script>
 </body>
