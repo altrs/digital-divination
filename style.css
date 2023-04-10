@@ -57,6 +57,14 @@
   opacity: 65%;
 }
 
+#instructions5 {
+  opacity: 1;
+  text-align: center;
+  line-height: 1.5;
+  color: #a6ffbe;
+  opacity: 65%;
+}
+
 #instructions.fade-out {
   opacity: 0;
 }

@@ -6,6 +6,7 @@ var x, y;
 var xDec = 360/window.innerWidth; //width to longitude(-180, 180) ratio conversion decimal
 var yDec = 180/window.innerHeight; //height to latitude(-90, 90) ratio conversion decimal
 
+let choosenImages = [];
 
 //INSTRUCTIONS DISPLAY PART 1 ------------------------------------------------------------------------
 const instructions = document.getElementById("instructions");
@@ -39,8 +40,8 @@ setTimeout(function() {
   instructions4.innerHTML = "YOU TRAVERSE THE WORLD THROUGH YOUR EYES";
 }, 32000);
 setTimeout(function() {
-  instructions4.innerHTML = "YOU TRAVERSE THE WORLD THROUGH YOUR EYES";
-}, 32000);
+  instructions5.innerHTML = "YOU WILL BE LOOKING AT A BLANK SCREEN FOR 30 SECONDS<br>WHILE THE SCAN RUNS";
+}, 33000);
 
 setTimeout(function() { //ADD BUTTON AT END
   const centerDiv = document.querySelector('.center');
@@ -53,23 +54,30 @@ setTimeout(function() { //ADD BUTTON AT END
   button.style.borderColor = "#a6ffbe";
   centerDiv.style.textAlign = "center";
   centerDiv.appendChild(button);
-  button.addEventListener("click", function() {logXY();});
+  button.addEventListener("click", function() {
+    logXY();
+  });
 
-}, 33000);
+}, 34000);
 
 
 
 //CALIBRATION GIFS ------------------------------------------------------------------------------
-const divs = document.querySelectorAll('.calib'); // Get all the divs with class 'calib'
-divs.forEach(div => { // Loop through each div and add an event listener for the 'click' event
-  div.addEventListener('click', () => {
-    const gifs = JSON.parse(div.dataset.gifs); // Get the data-gifs array of the clicked div
-    let currentGifIndex = gifs.indexOf(div.style.backgroundImage.slice(5, -2)); // Gets current bg
+const divs = document.querySelectorAll('.calib');
 
-    // If the current background image is the last one in the array, loop back to the beginning
-    if (currentGifIndex === gifs.length - 1) {currentGifIndex = 0;} else {currentGifIndex++;}
-    // Set the background image of the div to the next image in the array
-    div.style.backgroundImage = `url(${gifs[currentGifIndex]})`;
+divs.forEach((div, index) => {
+  const gifs = JSON.parse(div.dataset.gifs);
+  choosenImages[index] = gifs[0];
+  
+  div.addEventListener('click', () => {
+    let currentGifIndex = gifs.indexOf(choosenImages[index]);
+    if (currentGifIndex === gifs.length - 1) {
+      currentGifIndex = 0;
+    } else {
+      currentGifIndex++;
+    }
+    choosenImages[index] = gifs[currentGifIndex];
+    div.style.backgroundImage = `url(${choosenImages[index]})`;
   });
 });
 
@@ -113,13 +121,16 @@ function logXY() {
     button.style.backgroundColor = "black";
     button.style.color = "#a6ffbe";
     button.style.borderColor = "#a6ffbe";
-    button.style.margin = "30px";
+    button.style.position = "absolute";
+    button.style.top = "50%";
+    button.style.left = "50%";
+    button.style.transform = "translate(-50%, -50%)";
     document.body.appendChild(button);
     button.addEventListener("click", function() {
-      window.location.href = 'results.html';
+      results();
     });
   }, 30000);
-  
+
 }
 
 
@@ -148,6 +159,40 @@ document.addEventListener("mousemove", function(event) {
     var coordinates = "Mouse coordinates: (" + mx + ", " + my + ")";
     document.getElementById("coordinates").textContent = coordinates;
 });
+
+
+//RESULTS ------------------------------------------------------------------------------
+function results () {
+  const textArray = [];
+  textArray.push("USER WANTS");
+  textArray.push("USER WANTS");
+  textArray.push("USER WANTS");
+  textArray.push("USER WANTS");
+  textArray.push("USER WANTS");
+  textArray.push("USER WANTS");
+  textArray.push("YOUR EYES LOOKED TO ___ FOR GUIDANCE");
+  textArray.push("THERE, THE EARTH SAYS:");
+  textArray.push("IT WILL COME LIKE _____");
+  textArray.push("THERE WILL BE __% PRESSURE");
+  textArray.push("THE VISIBILITY LEVEL WILL BE: __");
+  textArray.push("THE EARTH WILL PUSH YOU AT __MPH");
+
+  const resultsDiv = document.createElement('div');
+  const results = document.createElement('p');
+  resultsDiv.appendChild(results);
+
+  let index = 0;
+  setInterval(() => {
+    if (index < textArray.length) {
+      results.innerText += textArray[index] + '\n';
+      index++;
+    }
+  }, 2000);
+
+  results.style.color = "#a6ffbe"; // sets the text color to red
+  document.body.appendChild(resultsDiv);
+
+}
 
 
 
