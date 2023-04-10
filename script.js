@@ -37,7 +37,7 @@ document.addEventListener("mousemove", function(event) {
     var mx = (event.clientX)*(xDec);
       if (mx < 180) {mx = -Math.abs((mx)-180);} else{mx = (mx-180);} //convert to negative coordinate
     var my = (event.clientY)*(yDec);
-      if (my < 90) {my = -my;} //convert to negative coordinate
+      if (my < 90) {my = -(my)+90;} else{my = -Math.abs(my-90);} //convert to negative coordinate
     var coordinates = "Mouse coordinates: (" + mx + ", " + my + ")";
     document.getElementById("coordinates").textContent = coordinates;
 });
