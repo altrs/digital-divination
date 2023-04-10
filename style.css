@@ -1,0 +1,34 @@
+.calib{
+	position: absolute;
+	border-style: solid;
+	width:100px;
+	height:100px;
+	margin: 10px;
+}
+
+.center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.center div {
+  width: 200px;
+  height: 200px;
+  border-style: solid;
+  margin: auto;
+}
+
+#instructions {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#instructions.fade-out {
+  opacity: 0;
+}
+
+#instructions.fade-in {
+  opacity: 1;
+}

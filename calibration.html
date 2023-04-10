@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://webgazer.cs.brown.edu/webgazer.js?" defer></script>
+	<link rel="stylesheet" href="style.css">
+	<title>Calibration</title>
+</head>
+<body>
+	<p id="coordinates" style="position: absolute;"></p>
+
+	<div class="calib" style="top:0;left:25%;"></div>
+	<div class="calib" style="top:0;right:25%;"></div>
+	<div class="calib" style="bottom:0;left:25%;"></div>
+	<div class="calib" style="bottom:0;right:25%;"></div>
+	<div class="calib" style="top:50%;left:0;transform: translateY(-50%);"></div>
+	<div class="calib" style="top:50%;right: 0;transform: translateY(-50%);"></div>
+
+	<div class="center">
+		<p id="instructions">PLEASE ENABLE YOUR WEB CAMERA<br>CALIBRATION WILL BEGIN SHORTLY</p>
+	</div>
+
+	<script src="script.js" defer></script>
+</body>
+</html>
