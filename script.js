@@ -7,12 +7,12 @@ var xDec = 360/window.innerWidth; //width to longitude(-180, 180) ratio conversi
 var yDec = 180/window.innerHeight; //height to latitude(-90, 90) ratio conversion decimal
 
 
-//INSTRUCTIONS DISPLAY ------------------------------------------------------------------------
+//INSTRUCTIONS DISPLAY PART 1 ------------------------------------------------------------------------
 const instructions = document.getElementById("instructions");
 setTimeout(function() {
   instructions.classList.add("fade-out");
   setTimeout(function() {
-    instructions.innerHTML = "CALIBRATE YOUR FOCUS.<br>CLICK THE BOXES AND CIRCLES TO ALIGN YOUR THOUGHTS";
+    instructions.innerHTML = "CALIBRATE YOUR FOCUS<br>CLICK THE BOXES AND CIRCLES TO ALIGN YOUR THOUGHTS";
     instructions.classList.remove("fade-out");
     instructions.classList.add("fade-in");
     setTimeout(function() {
@@ -24,6 +24,39 @@ setTimeout(function() {
 setTimeout(function() {
   instructions.classList.add("fade-out");
 }, 10000);
+
+
+//INSTRUCTIONS DISPLAY PART 2 ------------------------------------------------------------------------
+const instructions2 = document.getElementById("instructions2");
+setTimeout(function() {
+  instructions.remove();
+  instructions2.innerHTML = "YOU FOCUS ON THE SCREEN";
+}, 30000);
+setTimeout(function() {
+  instructions3.innerHTML = "YOU SEE YOURSELF IN THE REFLECTION";
+}, 31000);
+setTimeout(function() {
+  instructions4.innerHTML = "YOU TRAVERSE THE WORLD THROUGH YOUR EYES";
+}, 32000);
+setTimeout(function() {
+  instructions4.innerHTML = "YOU TRAVERSE THE WORLD THROUGH YOUR EYES";
+}, 32000);
+
+setTimeout(function() { //ADD BUTTON AT END
+  const centerDiv = document.querySelector('.center');
+  const button = document.createElement('button');
+  button.textContent = "BEGIN?";
+  button.style.display = "block";
+  button.style.margin = "auto";
+  button.style.backgroundColor = "black"
+  button.style.color = "#a6ffbe";
+  button.style.borderColor = "#a6ffbe";
+  centerDiv.style.textAlign = "center";
+  centerDiv.appendChild(button);
+  button.addEventListener("click", function() {logXY();});
+
+}, 33000);
+
 
 
 //CALIBRATION GIFS ------------------------------------------------------------------------------
@@ -65,7 +98,7 @@ function logXY() {
   }, 30000);
 
 }
-setTimeout(logXY, 60000); //start with five second delay
+//setTimeout(logXY, 60000); //start with five second delay
 
 
 //FOR THE LITTLE CIRCLES ---------------------------------------------------------------------------
@@ -74,37 +107,14 @@ const circle2 = document.getElementById('circle2');
 const circle3 = document.getElementById('circle3');
 const circle4 = document.getElementById('circle4');
 
-circle1.addEventListener("click", function() {
-  circle1.style.backgroundColor = "#a6ffbe";
-});
-
-circle2.addEventListener("click", function() {
-  circle2.style.backgroundColor = "#a6ffbe";
-});
-
-circle3.addEventListener("click", function() {
-  circle3.style.backgroundColor = "#a6ffbe";
-});
-
-circle4.addEventListener("click", function() {
-  circle4.style.backgroundColor = "#a6ffbe";
-});
-
-circle5.addEventListener("click", function() {
-  circle5.style.backgroundColor = "#a6ffbe";
-});
-
-circle6.addEventListener("click", function() {
-  circle6.style.backgroundColor = "#a6ffbe";
-});
-
-circle7.addEventListener("click", function() {
-  circle7.style.backgroundColor = "#a6ffbe";
-});
-
-circle8.addEventListener("click", function() {
-  circle8.style.backgroundColor = "#a6ffbe";
-});
+circle1.addEventListener("click", function() {circle1.style.backgroundColor = "#a6ffbe";});
+circle2.addEventListener("click", function() {circle2.style.backgroundColor = "#a6ffbe";});
+circle3.addEventListener("click", function() {circle3.style.backgroundColor = "#a6ffbe";});
+circle4.addEventListener("click", function() {circle4.style.backgroundColor = "#a6ffbe";});
+circle5.addEventListener("click", function() {circle5.style.backgroundColor = "#a6ffbe";});
+circle6.addEventListener("click", function() {circle6.style.backgroundColor = "#a6ffbe";});
+circle7.addEventListener("click", function() {circle7.style.backgroundColor = "#a6ffbe";});
+circle8.addEventListener("click", function() {circle8.style.backgroundColor = "#a6ffbe";});
 
 
 //MOUSE XY TESTING ------------------------------------------------------------------------------
