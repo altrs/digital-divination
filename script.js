@@ -77,6 +77,16 @@ divs.forEach(div => { // Loop through each div and add an event listener for the
 
 //MAIN FUNCTION ------------------------------------------------------------------------------------
 function logXY() { 
+  //REMOVE ELEMENTS ON SCREEN
+  const gifsToRemove = document.querySelectorAll(".calib");
+  gifsToRemove.forEach(element => {element.remove();});
+  const divToRemove = document.querySelectorAll(".center");
+  divToRemove.forEach(element => {element.remove();});
+  const circlesToRemove = document.querySelectorAll(".circle");
+  circlesToRemove.forEach(element => {element.remove();});
+
+
+  //LOG GAZE XY
   webgazer.showPredictionPoints(false); //turn view point off
   var intervalId = setInterval(function() { //obtain x and y coordinates
     var predictionPromise = webgazer.getCurrentPrediction();
@@ -95,10 +105,22 @@ function logXY() {
     clearInterval(intervalId);
     console.log("Scan Complete");
     webgazer.pause();
-  }, 30000);
 
+    //RESULTS BUTTON
+    const button = document.createElement('button');
+    button.textContent = "GET RESULTS";
+    button.style.display = "block";
+    button.style.backgroundColor = "black";
+    button.style.color = "#a6ffbe";
+    button.style.borderColor = "#a6ffbe";
+    button.style.margin = "30px";
+    document.body.appendChild(button);
+    button.addEventListener("click", function() {
+      window.location.href = 'results.html';
+    });
+  }, 30000);
+  
 }
-//setTimeout(logXY, 60000); //start with five second delay
 
 
 //FOR THE LITTLE CIRCLES ---------------------------------------------------------------------------
