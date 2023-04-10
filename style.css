@@ -1,9 +1,10 @@
 .calib{
 	position: absolute;
 	border-style: solid;
-	width:100px;
+	width:200px;
 	height:100px;
 	margin: 10px;
+	background-size: cover;
 }
 
 .center {
@@ -23,6 +24,8 @@
 #instructions {
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
+  text-align: center;
+  line-height: 1.5;
 }
 
 #instructions.fade-out {

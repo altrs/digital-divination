@@ -1,27 +1,58 @@
 //WEBGAZER GETS 30 COORDINATES IN 30 SECONDS
 webgazer.begin(); //initialize
 webgazer.showVideoPreview(false); //turn video off
-
 //Coordinate variables for conversion
 var x, y;
 var xDec = 360/window.innerWidth; //width to longitude(-180, 180) ratio conversion decimal
 var yDec = 180/window.innerHeight; //height to latitude(-90, 90) ratio conversion decimal
 
 //INSTRUCTIONS DISPLAY
-const myText = document.getElementById("instructions");
+const instructions = document.getElementById("instructions");
 setTimeout(function() {
-  myText.classList.add("fade-out");
+  instructions.classList.add("fade-out");
   setTimeout(function() {
-    myText.textContent = "CALIBRATE YOUR FOCUS. \n CLICK THE BOXES AND CIRCLES TO ALIGN YOUR THOUGHTS";
-    myText.classList.remove("fade-out");
-    myText.classList.add("fade-in");
+    instructions.innerHTML = "CALIBRATE YOUR FOCUS.<br>CLICK THE BOXES AND CIRCLES TO ALIGN YOUR THOUGHTS";
+    instructions.classList.remove("fade-out");
+    instructions.classList.add("fade-in");
     setTimeout(function() {
-      myText.classList.remove("fade-in");
+      instructions.classList.remove("fade-in");
     }, 500);
   }, 500);
 }, 5000);
 
-function logXY() { //MAIN FUNCTION
+setTimeout(function() {
+  instructions.classList.add("fade-out");
+}, 10000);
+
+
+//CALIBRATION GIFS
+const divs = document.querySelectorAll('.calib'); // Get all the divs with class 'calib'
+
+// Loop through each div and add an event listener for the 'click' event
+divs.forEach(div => {
+  div.addEventListener('click', () => {
+    // Get the data-gifs array of the clicked div
+    const gifs = JSON.parse(div.dataset.gifs);
+
+    // Get the current background image of the div
+    let currentGifIndex = gifs.indexOf(div.style.backgroundImage.slice(5, -2));
+
+    // If the current background image is the last one in the array, loop back to the beginning
+    if (currentGifIndex === gifs.length - 1) {
+      currentGifIndex = 0;
+    } else {
+      currentGifIndex++;
+    }
+
+    // Set the background image of the div to the next image in the array
+    div.style.backgroundImage = `url(${gifs[currentGifIndex]})`;
+  });
+});
+
+
+
+//MAIN FUNCTION
+function logXY() { 
   webgazer.showPredictionPoints(false); //turn view point off
   var intervalId = setInterval(function() { //obtain x and y coordinates
     var predictionPromise = webgazer.getCurrentPrediction();
