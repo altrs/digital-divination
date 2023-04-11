@@ -1,5 +1,5 @@
 //WEBGAZER GETS 30 COORDINATES IN 30 SECONDS
-webgazer.begin(); //initialize
+webgazer.begin(); //initialize https://webgazer.cs.brown.edu/
 webgazer.showVideoPreview(false); //turn video off
 //Coordinate variables for conversion
 var x, y;
@@ -7,12 +7,14 @@ var xDec = 360/window.innerWidth; //width to longitude(-180, 180) ratio conversi
 var yDec = 180/window.innerHeight; //height to latitude(-90, 90) ratio conversion decimal
 
 let choosenImages = [];
+let xCoords = [];
+let yCoords = [];
 
 //INSTRUCTIONS DISPLAY PART 1 ------------------------------------------------------------------------
 const instructions = document.getElementById("instructions");
 setTimeout(function() {
-  instructions.classList.add("fade-out");
-  setTimeout(function() {
+  instructions.classList.add("fade-out"); //https://blog.hubspot.com/website/css-fade-in
+  setTimeout(function() { https://javascript.info/settimeout-setinterval
     instructions.innerHTML = "CALIBRATE YOUR FOCUS<br>CLICK THE BOXES AND CIRCLES TO ALIGN YOUR THOUGHTS";
     instructions.classList.remove("fade-out");
     instructions.classList.add("fade-in");
@@ -102,8 +104,10 @@ function logXY() {
       if (prediction) {
         var x = (prediction.x)*(xDec);
           if (x < 180) {x = -Math.abs((x)-180);} else{x = (x-180);} //convert to negative coordinate
+          xCoords.push(x);
         var y = (prediction.y)*(yDec);
           if (y < 90) {y = -(y)+90;} else{y = -Math.abs(y-90);} //convert to negative coordinate
+          xCoords.push(y);
         console.log("X: " + x + ", Y:" + y); //GAZE XY
       } else {console.log("No prediction");}
     });
@@ -115,19 +119,20 @@ function logXY() {
     webgazer.pause();
 
     //RESULTS BUTTON
-    const button = document.createElement('button');
-    button.textContent = "GET RESULTS";
-    button.style.display = "block";
-    button.style.backgroundColor = "black";
-    button.style.color = "#a6ffbe";
-    button.style.borderColor = "#a6ffbe";
-    button.style.position = "absolute";
-    button.style.top = "50%";
-    button.style.left = "50%";
-    button.style.transform = "translate(-50%, -50%)";
-    document.body.appendChild(button);
-    button.addEventListener("click", function() {
+    const buttonR = document.createElement('button');
+    buttonR.textContent = "GET RESULTS";
+    buttonR.style.display = "block";
+    buttonR.style.backgroundColor = "black";
+    buttonR.style.color = "#a6ffbe";
+    buttonR.style.borderColor = "#a6ffbe";
+    buttonR.style.position = "absolute";
+    buttonR.style.top = "50%";
+    buttonR.style.left = "50%";
+    buttonR.style.transform = "translate(-50%, -50%)";
+    document.body.appendChild(buttonR);
+    buttonR.addEventListener("click", function() {
       results();
+      buttonR.style.display = 'none'; //https://bobbyhadz.com/blog/javascript-hide-button-after-click
     });
   }, 30000);
 
@@ -151,20 +156,21 @@ circle8.addEventListener("click", function() {circle8.style.backgroundColor = "#
 
 
 //MOUSE XY TESTING ------------------------------------------------------------------------------
-document.addEventListener("mousemove", function(event) {
-    var mx = (event.clientX)*(xDec);
-      if (mx < 180) {mx = -Math.abs((mx)-180);} else{mx = (mx-180);} //convert to negative coordinate
-    var my = (event.clientY)*(yDec);
-      if (my < 90) {my = -(my)+90;} else{my = -Math.abs(my-90);} //convert to negative coordinate
-    var coordinates = "Mouse coordinates: (" + mx + ", " + my + ")";
-    document.getElementById("coordinates").textContent = coordinates;
-});
+// document.addEventListener("mousemove", function(event) {
+//     var mx = (event.clientX)*(xDec);
+//       if (mx < 180) {mx = -Math.abs((mx)-180);} else{mx = (mx-180);} //convert to negative coordinate
+//     var my = (event.clientY)*(yDec);
+//       if (my < 90) {my = -(my)+90;} else{my = -Math.abs(my-90);} //convert to negative coordinate
+//     var coordinates = "Mouse coordinates: (" + mx + ", " + my + ")";
+//     document.getElementById("coordinates").textContent = coordinates;
+// });
 
 
 //RESULTS ------------------------------------------------------------------------------
 function results () {
   const textArray = [];
-  textArray.push("USER WANTS");
+  var tx = "10";
+  textArray.push("USER WANTS" + tx);
   textArray.push("USER WANTS");
   textArray.push("USER WANTS");
   textArray.push("USER WANTS");
@@ -176,6 +182,8 @@ function results () {
   textArray.push("THERE WILL BE __% PRESSURE");
   textArray.push("THE VISIBILITY LEVEL WILL BE: __");
   textArray.push("THE EARTH WILL PUSH YOU AT __MPH");
+  textArray.push(" ");
+  textArray.push("THANK YOU FOR CONSULTING TO EARTH ON THIS MATTER");
 
   const resultsDiv = document.createElement('div');
   const results = document.createElement('p');
