@@ -13,6 +13,10 @@ let yCoords = [];
 
 let overallX = 0;
 let overallY = 0;
+let main;
+let pressure;
+let visibility;
+let windmph;
 
 //INSTRUCTIONS DISPLAY PART 1 ------------------------------------------------------------------------
 const instructions = document.getElementById("instructions");
@@ -46,7 +50,7 @@ setTimeout(function() {
   instructions4.innerHTML = "YOU TRAVERSE THE WORLD THROUGH YOUR EYES";
 }, 32000);
 setTimeout(function() {
-  instructions5.innerHTML = "YOU WILL BE LOOKING AT A BLANK SCREEN FOR 30 SECONDS<br>WHILE THE SCAN RUNS";
+  instructions5.innerHTML = "YOU WILL BE LOOKING AT A BLANK SCREEN FOR<br>30 SECONDS WHILE THE SCAN RUNS";
 }, 33000);
 
 setTimeout(function() { //ADD BUTTON AT END
@@ -136,8 +140,15 @@ function logXY() {
     buttonR.style.transform = "translate(-50%, -50%)";
     document.body.appendChild(buttonR);
     buttonR.addEventListener("click", function() {
-      results();
-      buttonR.style.display = 'none'; //https://bobbyhadz.com/blog/javascript-hide-button-after-click
+      overallX = xCoords[xCoords.length - 1];
+      overallY = yCoords[yCoords.length - 1];
+      if(overallX > -90 && overallX < 90 && overallY > -180 && overallY < 180){
+        results();
+        buttonR.style.display = 'none'; //https://bobbyhadz.com/blog/javascript-hide-button-after-click
+      } else{
+        alert("GAZE READING ERROR. PLEASE TRY AGAIN");
+        location.reload();
+      }
     });
   }, 30000);
 
@@ -171,17 +182,18 @@ circle8.addEventListener("click", function() {circle8.style.backgroundColor = "#
 // });
 
 
-//RESULTS ------------------------------------------------------------------------------
-function results () {
+//RESULTS --------------------------------------------------------------------------------------
+async function results () {
   //GET FINAL COORDINATES
   console.log("x:" + xCoords);
   console.log("y:" + yCoords);
   console.log("Overall x:" + xCoords[xCoords.length - 1]);
   console.log("Overall y:" + yCoords[yCoords.length - 1]);
 
-  // GETWEATHERINFO()
+  //GET WEATHER INFO
+  await getWeatherInfo();
 
-  // GET WORDS INFO()
+  // GET WORDS INFO
   console.log(choosenImages);
   for (let q = 0; q < choosenImages.length; q++) {
     const filename = choosenImages[q].split('/').pop();
@@ -193,14 +205,16 @@ function results () {
   //Draw path of coordinates
   const canvas = document.getElementById('my-canvas');
   const ctx = canvas.getContext('2d');
+  canvas.style.display = 'inline-block'; // or 'block'
   ctx.strokeStyle = '#a6ffbe';
   ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.moveTo(xCoords[0], yCoords[0]);
+  ctx.moveTo(xCoords[0] * 2, yCoords[0] * 2); // Scale the first point
   for (let i = 1; i < xCoords.length; i++) {  // Draw a line to each subsequent point
-    ctx.lineTo(xCoords[i], yCoords[i]);
+    ctx.lineTo(xCoords[i] * 2, yCoords[i] * 2); // Scale each point
   }
   ctx.stroke(); // Stroke the path to the canvas
+
 
   //WRITE RESULTS TO SCREEN
   const textArray = [];
@@ -212,10 +226,10 @@ function results () {
   textArray.push("USER WANTS " + choosenImages2[5].toUpperCase());
   textArray.push("YOUR EYES LOOKED TO (" + xCoords[xCoords.length - 1] + ", " + yCoords[yCoords.length - 1] +") FOR GUIDANCE");
   textArray.push("THERE, THE EARTH SAYS:");
-  textArray.push("IT WILL COME LIKE _____");
-  textArray.push("THERE WILL BE __% PRESSURE");
-  textArray.push("THE VISIBILITY LEVEL WILL BE: __");
-  textArray.push("THE EARTH WILL PUSH YOU AT __MPH");
+  textArray.push("IT WILL COME LIKE " + main);
+  textArray.push("THE PRESSURE WILL BE " + pressure + " HPA");
+  textArray.push("THE VISIBILITY LEVEL WILL BE " + visibility + " METERS");
+  textArray.push("THE EARTH WILL PUSH YOU AT " + windmph + " MPH");
   textArray.push(" ");
   textArray.push("THANK YOU FOR CONSULTING THE EARTH ON THIS MATTER");
 
@@ -238,10 +252,20 @@ function results () {
 
 const api_key = "170bbceaf0629a225badbb53e828b7e8";
 async function getWeatherInfo (){
+  let api_url = "https://api.openweathermap.org/data/2.5/weather?lat=" + yCoords[yCoords.length - 1] + "&lon=" + xCoords[xCoords.length - 1] + "&appid=" + api_key
+
+  const response = await fetch(api_url);
+  const data = await response.json();
+  console.log(data);
 
 
+  //let temp = data.main.temp; //navigates json data and stores the value in 'temp'
+
+  main = data.weather[0].description.toUpperCase();
+  pressure = data.main.pressure;
+  visibility = visibility = data.visibility ? data.visibility : "N/A";
+  windmph = data.wind.speed;
 }
-
 
 
 
