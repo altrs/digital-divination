@@ -7,8 +7,12 @@ var xDec = 360/window.innerWidth; //width to longitude(-180, 180) ratio conversi
 var yDec = 180/window.innerHeight; //height to latitude(-90, 90) ratio conversion decimal
 
 let choosenImages = [];
+let choosenImages2 = [];
 let xCoords = [];
 let yCoords = [];
+
+let overallX = 0;
+let overallY = 0;
 
 //INSTRUCTIONS DISPLAY PART 1 ------------------------------------------------------------------------
 const instructions = document.getElementById("instructions");
@@ -80,6 +84,7 @@ divs.forEach((div, index) => {
     }
     choosenImages[index] = gifs[currentGifIndex];
     div.style.backgroundImage = `url(${choosenImages[index]})`;
+    //console.log(choosenImages);
   });
 });
 
@@ -107,8 +112,8 @@ function logXY() {
           xCoords.push(x);
         var y = (prediction.y)*(yDec);
           if (y < 90) {y = -(y)+90;} else{y = -Math.abs(y-90);} //convert to negative coordinate
-          xCoords.push(y);
-        console.log("X: " + x + ", Y:" + y); //GAZE XY
+          yCoords.push(y);
+        //console.log("X: " + x + ", Y:" + y); //GAZE XY
       } else {console.log("No prediction");}
     });
   }, 1000);
@@ -168,22 +173,51 @@ circle8.addEventListener("click", function() {circle8.style.backgroundColor = "#
 
 //RESULTS ------------------------------------------------------------------------------
 function results () {
+  //GET FINAL COORDINATES
+  console.log("x:" + xCoords);
+  console.log("y:" + yCoords);
+  console.log("Overall x:" + xCoords[xCoords.length - 1]);
+  console.log("Overall y:" + yCoords[yCoords.length - 1]);
+
+  // GETWEATHERINFO()
+
+  // GET WORDS INFO()
+  console.log(choosenImages);
+  for (let q = 0; q < choosenImages.length; q++) {
+    const filename = choosenImages[q].split('/').pop();
+    const fileNameWithoutExtension = filename.split(".")[0];
+    choosenImages2[q] = fileNameWithoutExtension;
+  }
+  console.log(choosenImages2);
+
+  //Draw path of coordinates
+  const canvas = document.getElementById('my-canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.strokeStyle = '#a6ffbe';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(xCoords[0], yCoords[0]);
+  for (let i = 1; i < xCoords.length; i++) {  // Draw a line to each subsequent point
+    ctx.lineTo(xCoords[i], yCoords[i]);
+  }
+  ctx.stroke(); // Stroke the path to the canvas
+
+  //WRITE RESULTS TO SCREEN
   const textArray = [];
-  var tx = "10";
-  textArray.push("USER WANTS" + tx);
-  textArray.push("USER WANTS");
-  textArray.push("USER WANTS");
-  textArray.push("USER WANTS");
-  textArray.push("USER WANTS");
-  textArray.push("USER WANTS");
-  textArray.push("YOUR EYES LOOKED TO ___ FOR GUIDANCE");
+  textArray.push("USER WANTS " + choosenImages2[0].toUpperCase());
+  textArray.push("USER WANTS " + choosenImages2[1].toUpperCase());
+  textArray.push("USER WANTS " + choosenImages2[2].toUpperCase());
+  textArray.push("USER WANTS " + choosenImages2[3].toUpperCase());
+  textArray.push("USER WANTS " + choosenImages2[4].toUpperCase());
+  textArray.push("USER WANTS " + choosenImages2[5].toUpperCase());
+  textArray.push("YOUR EYES LOOKED TO (" + xCoords[xCoords.length - 1] + ", " + yCoords[yCoords.length - 1] +") FOR GUIDANCE");
   textArray.push("THERE, THE EARTH SAYS:");
   textArray.push("IT WILL COME LIKE _____");
   textArray.push("THERE WILL BE __% PRESSURE");
   textArray.push("THE VISIBILITY LEVEL WILL BE: __");
   textArray.push("THE EARTH WILL PUSH YOU AT __MPH");
   textArray.push(" ");
-  textArray.push("THANK YOU FOR CONSULTING TO EARTH ON THIS MATTER");
+  textArray.push("THANK YOU FOR CONSULTING THE EARTH ON THIS MATTER");
 
   const resultsDiv = document.createElement('div');
   const results = document.createElement('p');
@@ -199,6 +233,12 @@ function results () {
 
   results.style.color = "#a6ffbe"; // sets the text color to red
   document.body.appendChild(resultsDiv);
+
+}
+
+const api_key = "170bbceaf0629a225badbb53e828b7e8";
+async function getWeatherInfo (){
+
 
 }
 
