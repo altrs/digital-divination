@@ -258,7 +258,7 @@ async function results () {
     temp_link.style.color = "#a6ffbe";
 
     resultsDiv.appendChild(par);
-  }, 10000)
+  }, 30000)
 
   results.style.color = "#a6ffbe"; // sets the text color to red
   document.body.appendChild(resultsDiv);
