@@ -83,3 +83,18 @@
   border: 1px solid #a6ffbe;
 }
 
+.gif{
+  width: 70%;
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.beginp{
+  position: fixed;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #c9ffec;
+}

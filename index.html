@@ -4,11 +4,19 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://webgazer.cs.brown.edu/webgazer.js?" defer></script>
+	<link rel="stylesheet" href="style.css">
 	<title>Index</title>
 </head>
-<body>
+<body onmousedown="mouseDown()" style="background-color: black;">
 
-	<a href="calibration.html">START</a>
+	<img class="gif" src="opening.gif"> 
+	<p class="beginp">CLICK ANYWHERE TO BEGIN</p>
+
+	<script>
+	function mouseDown() { //https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_onmousedown_html
+	  window.location.href = "calibration.html";
+	}
+	</script>
 
 </body>
 </html>
