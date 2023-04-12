@@ -248,7 +248,6 @@ async function results () {
   setTimeout(() => { //https://stackoverflow.com/questions/34146861/add-link-element-a-to-paragraph-p-javascript
     var temp_link = document.createElement("a");
     temp_link.href = "index.html";
-    temp_link.target = '_blank';
     temp_link.innerHTML = "RETURN?";
 
     var par = document.createElement("p");
@@ -258,7 +257,7 @@ async function results () {
     temp_link.style.color = "#a6ffbe";
 
     resultsDiv.appendChild(par);
-  }, 30000)
+  }, 35000)
 
   results.style.color = "#a6ffbe"; // sets the text color to red
   document.body.appendChild(resultsDiv);
