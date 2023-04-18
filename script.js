@@ -24,7 +24,7 @@ setTimeout(function() {
   instructions.classList.add("fade-out"); //https://blog.hubspot.com/website/css-fade-in
   setTimeout(function() { https://javascript.info/settimeout-setinterval
     instructions.innerHTML = "CALIBRATE YOUR FOCUS<br>CLICK THE BOXES AND CIRCLES TO ALIGN YOUR THOUGHTS";
-    instructions.classList.remove("fade-out");
+    instructions.classList.remove("fade-out"); //https://medium.com/cloud-native-the-gathering/how-to-use-css-to-fade-in-and-fade-out-html-text-and-pictures-f45c11364f08
     instructions.classList.add("fade-in");
     setTimeout(function() {
       instructions.classList.remove("fade-in");
@@ -38,7 +38,7 @@ setTimeout(function() {
 
 
 //INSTRUCTIONS DISPLAY PART 2 ------------------------------------------------------------------------
-const instructions2 = document.getElementById("instructions2");
+const instructions2 = document.getElementById("instructions2"); //https://www.javascripttutorial.net/javascript-dom/javascript-getelementbyid/
 setTimeout(function() {
   instructions.remove();
   instructions2.innerHTML = "YOU FOCUS ON THE SCREEN";
@@ -73,13 +73,13 @@ setTimeout(function() { //ADD BUTTON AT END
 
 
 //CALIBRATION GIFS ------------------------------------------------------------------------------
-const divs = document.querySelectorAll('.calib');
+const divs = document.querySelectorAll('.calib'); //https://stackoverflow.com/questions/52365938/get-all-elements-containing-a-class-with-queryselector
 
-divs.forEach((div, index) => {
+divs.forEach((div, index) => { //https://www.w3schools.com/jsref/jsref_foreach.asp
   const gifs = JSON.parse(div.dataset.gifs);
   choosenImages[index] = gifs[0];
   
-  div.addEventListener('click', () => {
+  div.addEventListener('click', () => { //https://stackoverflow.com/questions/47809679/changing-the-background-image-when-clicking-on-the-div
     let currentGifIndex = gifs.indexOf(choosenImages[index]);
     if (currentGifIndex === gifs.length - 1) {
       currentGifIndex = 0;
@@ -96,7 +96,7 @@ divs.forEach((div, index) => {
 
 //MAIN FUNCTION ------------------------------------------------------------------------------------
 function logXY() { 
-  //REMOVE ELEMENTS ON SCREEN
+  //REMOVE ELEMENTS ON SCREEN https://stackoverflow.com/questions/47809679/changing-the-background-image-when-clicking-on-the-div
   const gifsToRemove = document.querySelectorAll(".calib");
   gifsToRemove.forEach(element => {element.remove();});
   const divToRemove = document.querySelectorAll(".center");
@@ -191,7 +191,7 @@ async function results () {
   console.log("Overall y:" + yCoords[yCoords.length - 1]);
 
   //GET WEATHER INFO
-  await getWeatherInfo();
+  await getWeatherInfo(); //https://www.sitepoint.com/javascript-async-await/
 
   // GET WORDS INFO
   console.log(choosenImages);
@@ -217,7 +217,7 @@ async function results () {
 
 
   //WRITE RESULTS TO SCREEN
-  const textArray = [];
+  const textArray = []; //https://stackoverflow.com/questions/43414720/how-to-print-multiple-sentences-using-an-array-element-within-a-string
   textArray.push("USER WANTS " + choosenImages2[0].toUpperCase());
   textArray.push("USER WANTS " + choosenImages2[1].toUpperCase());
   textArray.push("USER WANTS " + choosenImages2[2].toUpperCase());
@@ -277,7 +277,7 @@ async function getWeatherInfo (){
 
   main = data.weather[0].description.toUpperCase();
   pressure = data.main.pressure;
-  visibility = visibility = data.visibility ? data.visibility : "N/A";
+  visibility = visibility = data.visibility ? data.visibility : "N/A"; https://powerusers.microsoft.com/t5/General-Power-Automate/Use-of-Question-Mark-in-expressions/td-p/382181
   windmph = data.wind.speed;
 }
 
