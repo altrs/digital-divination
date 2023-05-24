@@ -11,8 +11,8 @@ let choosenImages2 = [];
 let xCoords = [];
 let yCoords = [];
 
-let overallX = 0;
-let overallY = 0;
+let overallX = 0; //longitude (-180, 180)
+let overallY = 0; //latitude (-90, 90)
 let main;
 let pressure;
 let visibility;
@@ -23,7 +23,7 @@ const instructions = document.getElementById("instructions");
 setTimeout(function() {
   instructions.classList.add("fade-out"); //https://blog.hubspot.com/website/css-fade-in
   setTimeout(function() { https://javascript.info/settimeout-setinterval
-    instructions.innerHTML = "CALIBRATE YOUR FOCUS<br>CLICK THE BOXES AND CIRCLES TO ALIGN YOUR THOUGHTS";
+    instructions.innerHTML = "CALIBRATE YOUR FOCUS<br>CLICK THE BOXES AND CIRCLES MULTIPLE TIMES TO ALIGN YOUR THOUGHTS AND GAZE";
     instructions.classList.remove("fade-out"); //https://medium.com/cloud-native-the-gathering/how-to-use-css-to-fade-in-and-fade-out-html-text-and-pictures-f45c11364f08
     instructions.classList.add("fade-in");
     setTimeout(function() {
@@ -139,15 +139,18 @@ function logXY() {
     buttonR.style.left = "50%";
     buttonR.style.transform = "translate(-50%, -50%)";
     document.body.appendChild(buttonR);
+
+    overallX = xCoords[xCoords.length - 1];
+    overallY = yCoords[yCoords.length - 1];
     buttonR.addEventListener("click", function() {
-      overallX = xCoords[xCoords.length - 1];
-      overallY = yCoords[yCoords.length - 1];
-      if(overallX > -90 && overallX < 90 && overallY > -180 && overallY < 180){
+      if(overallX > -180 && overallX < 180 && overallY > -90 && overallY < 90){
         results();
         buttonR.style.display = 'none'; //https://bobbyhadz.com/blog/javascript-hide-button-after-click
       } else{
-        alert("GAZE READING ERROR. PLEASE TRY AGAIN");
-        location.reload();
+        overallX = Math.random() * 360 - 180;
+        overallY = Math.random() * 180 - 90;
+        alert("GAZE READING ERROR. FETCHING RANDOMIZED LOCATION");
+        results();
       }
     });
   }, 30000);
@@ -169,7 +172,8 @@ circle5.addEventListener("click", function() {circle5.style.backgroundColor = "#
 circle6.addEventListener("click", function() {circle6.style.backgroundColor = "#a6ffbe";});
 circle7.addEventListener("click", function() {circle7.style.backgroundColor = "#a6ffbe";});
 circle8.addEventListener("click", function() {circle8.style.backgroundColor = "#a6ffbe";});
-
+circle9.addEventListener("click", function() {circle9.style.backgroundColor = "#a6ffbe";});
+circle10.addEventListener("click", function() {circle10.style.backgroundColor = "#a6ffbe";});
 
 //MOUSE XY TESTING ------------------------------------------------------------------------------
 // document.addEventListener("mousemove", function(event) {
@@ -224,7 +228,7 @@ async function results () {
   textArray.push("USER WANTS " + choosenImages2[3].toUpperCase());
   textArray.push("USER WANTS " + choosenImages2[4].toUpperCase());
   textArray.push("USER WANTS " + choosenImages2[5].toUpperCase());
-  textArray.push("YOUR EYES LOOKED TO (" + xCoords[xCoords.length - 1] + ", " + yCoords[yCoords.length - 1] +") FOR GUIDANCE");
+  textArray.push("YOUR EYES LOOKED TO (" + overallX + ", " + overallY +") FOR GUIDANCE");
   textArray.push("THERE, THE EARTH SAYS:");
   textArray.push("IT WILL COME LIKE " + main);
   textArray.push("THE PRESSURE WILL BE " + pressure + " HPA");
@@ -266,7 +270,7 @@ async function results () {
 
 const api_key = "170bbceaf0629a225badbb53e828b7e8";
 async function getWeatherInfo (){
-  let api_url = "https://api.openweathermap.org/data/2.5/weather?lat=" + yCoords[yCoords.length - 1] + "&lon=" + xCoords[xCoords.length - 1] + "&appid=" + api_key
+  let api_url = "https://api.openweathermap.org/data/2.5/weather?lat=" + overallY + "&lon=" + overallX + "&appid=" + api_key
 
   const response = await fetch(api_url);
   const data = await response.json();
