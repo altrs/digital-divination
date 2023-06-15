@@ -149,7 +149,7 @@ function logXY() {
       } else{
         overallX = Math.random() * 360 - 180;
         overallY = Math.random() * 180 - 90;
-        alert("GAZE READING ERROR. FETCHING RANDOMIZED LOCATION");
+        alert("GAZE READING ERROR. FETCHING LOCATION");
         results();
       }
     });
