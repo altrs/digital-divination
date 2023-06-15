@@ -6,8 +6,60 @@
 	<script src="https://webgazer.cs.brown.edu/webgazer.js?" defer></script>
 	<link rel="stylesheet" href="style.css">
 	<title>Index</title>
+	<style>
+      .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 15;
+        color: #d6ffe4;
+      }
+
+      .popup-content {
+        width: 300px;
+        padding: 15px;
+        position: absolute;
+        bottom: 5%;
+        left: 5%;
+        border: 1px solid #d6ffe4;
+        text-align: center;
+      }
+
+      @media (max-width: 800px) {
+      	.popup {
+	        display: none;
+	        position: fixed;
+	        width: 100%;
+	        z-index: 15;
+	        color: #d6ffe4;
+	      }
+
+	      .popup-content {
+	        width: 140px;
+	        height: 100px;
+	        padding: 5px;
+	        position: absolute;
+	        top: 5%;
+	        left: 5%;
+	        border: 1px solid #d6ffe4;
+	        text-align: center;
+	        font-size: 10px;
+	      }
+      }
+
+    </style>
 </head>
 <body onmousedown="mouseDown()" style="background-color: black;">
+
+	<div id="popup" class="popup">
+        <div class="popup-content">
+          <p>This web application tracks your eye gaze and utalizes it for algorithmic divination. Please enable your web camera within your phone and browser settings. A red dot appearing during calibration means it's working.</p>
+          <br>
+        </div>
+      </div>
 
 	<img class="gif" src="opening.gif"> 
 	<p class="beginp" style="text-align: center;">CLICK ANYWHERE TO BEGIN</p>
@@ -16,6 +68,15 @@
 	function mouseDown() { //https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_onmousedown_html
 	  window.location.href = "calibration.html";
 	}
+	window.onload = function() {
+        var popup = document.getElementById('popup');
+        popup.style.display = 'block';
+      }
+
+      function closePopup() {
+        var popup = document.getElementById('popup');
+        popup.style.display = 'none';
+      }
 	</script>
 
 </body>
