@@ -1,4 +1,4 @@
-https://altrs.github.io/envirohypno/ <br>
+https://altrs.github.io/digital-divination/index.html <br>
 
 EnviroHypno is a tool that lets users redefine their relationship with technology through the use of sound and the act of field recording. EnviroHypno is for individuals who are hesitant about technology's place in society and wish to take control of our future: those of us "...who are constantly mandated to get on board with a plan of the future drafted without our input or consent, yet who know in our bodies and spirits of technologies far wiser than products of Silicon Valley"(Zhang n.p.). <br>
 
