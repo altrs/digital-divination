@@ -52,28 +52,28 @@
 </head>
 <body onmousedown="mouseDown()" style="background-color: black;">
 
-	<div id="popup" class="popup">
+	<div id="popup" class="popup" style="pointer-events: none;">
         <div class="popup-content">
           <p>This web application tracks your eye gaze and utalizes it for algorithmic divination. Please enable your web camera within your phone and browser settings. A red dot appearing during calibration means it's working. <i>*If you are viewing this page from Instagram, camera functionality may not work. For best experience, open this website directly in Google.*</i></p>
         </div>
-      </div>
+   </div>
 
 	<img class="gif" src="opening.gif"> 
 	<p class="beginp" style="text-align: center;">CLICK ANYWHERE TO BEGIN</p>
 
 	<script>
-	// function mouseDown() { //https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_onmousedown_html
-	//   window.location.href = "calibration.html";
-	// }
-	// window.onload = function() {
-  //       var popup = document.getElementById('popup');
-  //       popup.style.display = 'block';
-  //     }
+	function mouseDown() { //https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_onmousedown_html
+	  window.location.href = "calibration.html";
+	}
+	window.onload = function() {
+        var popup = document.getElementById('popup');
+        popup.style.display = 'block';
+      }
 
-  //     function closePopup() {
-  //       var popup = document.getElementById('popup');
-  //       popup.style.display = 'none';
-  //     }
+      function closePopup() {
+        var popup = document.getElementById('popup');
+        popup.style.display = 'none';
+      }
 	</script>
 
 </body>
